@@ -17,6 +17,8 @@ void create_deck(){
     int i=0;
     int j=1;
     int k=0;
+    struct Deck *p;
+    p = &myDeck;
     while (i<52){
         myDeck.cards[i] = j;
         if (!(i%4) && i!=0){
@@ -33,22 +35,21 @@ void create_deck(){
         i++;
     }
 
-    //print_deck(myDeck);
-    shuffle(myDeck);
-    //print_deck(myDeck);
+    print_deck(myDeck);
+    shuffle(&myDeck);
+    print_deck(myDeck);
 }
 
-void shuffle(struct Deck thisDeck){
+void shuffle(struct Deck *thisDeck){
     int i=0;
     int rand_num=0;
     int temp;
     srand(time(NULL));
     while (i<52){
         rand_num = rand() % 52;
-        temp = thisDeck.cards[rand_num]; 
-        thisDeck.cards[rand_num] = thisDeck.cards[i];
-        thisDeck.cards[i] = temp;
+        temp = thisDeck->cards[rand_num]; 
+        thisDeck->cards[rand_num] = thisDeck->cards[i];
+        thisDeck->cards[i] = temp;
         i++;
     }
-    print_deck(thisDeck);
 }
