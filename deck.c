@@ -11,22 +11,19 @@ void print_deck(struct Deck *thisDeck){
     }
 }
 
-void create_deck(){
-    struct Deck myDeck;
-    myDeck.top = -1;
+void create_deck(struct Deck *thisDeck){
+    thisDeck->top = -1;
     int i=0;
     int j=1;
     int k=0;
-    struct Deck *p;
-    p = &myDeck;
     while (i<52){
-        myDeck.cards[i] = j;
+        thisDeck->cards[i] = j;
         if (!(i%4) && i!=0){
             j++;
         }
         if (j==11){
             while (k<15){
-                myDeck.cards[i] = 10;
+                thisDeck->cards[i] = 10;
                 k++;
                 i++;
             }
@@ -35,8 +32,8 @@ void create_deck(){
         i++;
     }
     
-    shuffle(p);
-    print_deck(p);
+    shuffle(thisDeck);
+    print_deck(thisDeck);
 }
 
 void shuffle(struct Deck *thisDeck){

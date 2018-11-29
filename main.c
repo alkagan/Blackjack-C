@@ -10,7 +10,7 @@ int main(void){
     struct Deck myDeck;
     struct Deck *p;
     p = &myDeck;
-    create_deck();
+    create_deck(p);
     
 
     return 0;
