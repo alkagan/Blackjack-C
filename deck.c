@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include "deck.h"
 
-void print_deck(struct Deck thisDeck){
+void print_deck(struct Deck *thisDeck){
     int i=0;
     while (i<52){
-        printf("Card %d: %d\n", i, thisDeck.cards[i]);
+        printf("Card %d: %d\n", i, thisDeck->cards[i]);
         i++;
     }
 }
@@ -34,10 +34,9 @@ void create_deck(){
         }
         i++;
     }
-
-    print_deck(myDeck);
-    shuffle(&myDeck);
-    print_deck(myDeck);
+    
+    shuffle(p);
+    print_deck(p);
 }
 
 void shuffle(struct Deck *thisDeck){

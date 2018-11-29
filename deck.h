@@ -8,7 +8,7 @@ struct Deck{
 
 void create_deck();
 
-void print_deck(struct Deck thisDeck);
+void print_deck(struct Deck *thisDeck);
 
 void shuffle(struct Deck *thisDeck);
 
