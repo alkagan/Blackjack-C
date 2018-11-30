@@ -33,7 +33,7 @@ void create_deck(struct Deck *thisDeck){
     }
     
     shuffle(thisDeck);
-    print_deck(thisDeck);
+    //print_deck(thisDeck);
 }
 
 void shuffle(struct Deck *thisDeck){

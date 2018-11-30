@@ -1,11 +1,13 @@
 #ifndef DEAL_H
 #define DEAL_H
 
+#include "deck.h"
+
 void deal(struct Deck *thisDeck);
 
-void hit(void);
+void hit(struct Deck *thisDeck, int player);
 
-void stay(void);
+int stay(struct Deck *thisDeck, int dealer);
 
 void check_winner(void);
 

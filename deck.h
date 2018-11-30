@@ -6,7 +6,7 @@ struct Deck{
     int cards[52];
 };
 
-void create_deck();
+void create_deck(struct Deck *thisDeck);
 
 void print_deck(struct Deck *thisDeck);
 
