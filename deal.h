@@ -7,7 +7,7 @@ void deal(struct Deck *thisDeck);
 
 void hit(struct Deck *thisDeck, int *p);
 
-int stay(struct Deck *thisDeck, int dealer, int player);
+void stay(struct Deck *thisDeck, int *pD, int *pP);
 
 void check_winner(void);
 

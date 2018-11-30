@@ -10,7 +10,9 @@ void deal(struct Deck *thisDeck){
     int player = 0;
     int dealer = 0;
     int *pPlayer;
+    int *pDealer;
     pPlayer = &player;
+    pDealer = &dealer;
     char input;
 
     shuffle(thisDeck);
@@ -30,7 +32,7 @@ void deal(struct Deck *thisDeck){
         if (input == 'h'){
             hit(thisDeck, pPlayer);
         } else if (input == 's'){
-            stay(thisDeck, dealer, player);
+            stay(thisDeck, pDealer, pPlayer);
         } else if (input == 'x'){
             return;
         } else {
@@ -44,25 +46,26 @@ void hit(struct Deck *thisDeck, int *p){
     *p += thisDeck->cards[4+card_counter];
     printf("Player value is %d\n", *p);
     if (*p > 21){
-        printf("you lose\n");
+        printf("You lose\n");
     }
     card_counter++;
     printf("Card_counter in hit(): %d\n", card_counter);
 }
 
-int stay(struct Deck *thisDeck, int dealer, int player){
-    while (dealer < 17){
-        printf("Dealer value is %d\n", dealer);
-        dealer += thisDeck->cards[4+card_counter];
+void stay(struct Deck *thisDeck, int *pD, int *pP){
+    while (*pD < 17){
+        printf("Dealer value is %d\n", *pD);
+        *pD += thisDeck->cards[4+card_counter];
+        if (*pD > 21){
+            printf("Dealer busts, you win!\n");
+        }
         card_counter++;
         printf("Card_counter in stay(): %d\n", card_counter);
     }
 
-    if (dealer >= player){
-        printf("Dealer wins!\n Dealer: %d\nYou: %d\n", dealer, player);
+    if (*pD >= *pP){
+        printf("Dealer wins!\n Dealer: %d\nYou: %d\n", *pD, *pP);
     } else {
-        printf("You win!\n Dealer: %d\nYou: %d\n", dealer, player);
+        printf("You win!\n Dealer: %d\nYou: %d\n", *pD, *pP);
     }
-
-    return dealer;
 }
