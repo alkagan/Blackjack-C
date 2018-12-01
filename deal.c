@@ -5,7 +5,7 @@
 #include "players.h"
 
 static int card_counter = 0;
-static int flag;
+static int flag = 0;
 
 void deal(struct Deck *thisDeck){
     int player = 0;
@@ -15,46 +15,50 @@ void deal(struct Deck *thisDeck){
     pPlayer = &player;
     pDealer = &dealer;
     char input;
-    card_counter = 0;
-    flag = 0;
+    
+    while (flag != 2){
+        card_counter = 0;
+        flag = 0;
+        shuffle(thisDeck);
+        printf("\n~~~Dealing a new game.~~~\n\n");
+        printf("Card counter: %d\n", card_counter);
+        printf("%d %d\n", thisDeck->cards[0], thisDeck->cards[2]);
+        player = thisDeck->cards[0] + thisDeck->cards[2];
+        printf("Player initial total value is: %d\n", player);
+        dealer = thisDeck->cards[1] + thisDeck->cards[3];
+        printf("%d %d\n", thisDeck->cards[1], thisDeck->cards[3]);
+        printf("Dealer initial total value is: %d\n", dealer);
 
-    shuffle(thisDeck);
-    printf("Dealing\n");
-    printf("Card counter: %d\n", card_counter);
-    printf("%d %d\n", thisDeck->cards[0], thisDeck->cards[2]);
-    player = thisDeck->cards[0] + thisDeck->cards[2];
-    printf("Player initial total value is: %d\n", player);
-    dealer = thisDeck->cards[1] + thisDeck->cards[3];
-    printf("%d %d\n", thisDeck->cards[1], thisDeck->cards[3]);
-    printf("Dealer initial total value is: %d\n", dealer);
+        while (!flag){
+            printf("Hit (h) or Stay (s)?\n");
+            scanf(" %c", &input);
+            
+            if (input == 'h'){
+                hit(thisDeck, pPlayer);
+            } else if (input == 's'){
+                stay(thisDeck, pDealer, pPlayer);
+            } else if (input == 'x'){
+                return;
+            }
 
-    while (!flag){
-        printf("Hit (h) or Stay (s)?\n");
-        scanf("%c", &input);
-        
-        if (input == 'h'){
-            hit(thisDeck, pPlayer);
-        } else if (input == 's'){
-            stay(thisDeck, pDealer, pPlayer);
-        } else if (input == 'x'){
-            return;
+            if (flag){
+                break;
+            }
         }
-
-        // if (flag){
-        //     break;
-        // }
     }
 }
 
+// Asks the user whether or not they would like to continue playing.
 void decision(struct Deck *thisDeck){
     char input;
     printf("Game over, continue playing?\n(y) to continue or any key to exit\n");
-    scanf("%c", &input);
+    scanf(" %c", &input);
     if (input == 'y' || input == 'Y'){
-        deal(thisDeck);
+        // deal(thisDeck);
         flag = 1;
     } else {
-        return;
+        flag = 2; // exit while loop in parent function
+        printf("flag value is %d\n", flag);
     }
 }
 
@@ -83,9 +87,9 @@ void stay(struct Deck *thisDeck, int *pD, int *pP){
     }
 
     if (*pD >= *pP && *pD <= 21){
-        printf("Dealer wins!\n Dealer: %d\nYou: %d\n", *pD, *pP);
+        printf("Dealer wins!\nDealer: %d\nYou: %d\n", *pD, *pP);
     } else {
-        printf("You win!\n Dealer: %d\nYou: %d\n", *pD, *pP);
+        printf("You win!\nDealer: %d\nYou: %d\n", *pD, *pP);
     }
     decision(thisDeck);
 }

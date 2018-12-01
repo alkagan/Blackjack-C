@@ -6,15 +6,13 @@
 int main(void){
     printf("Welcome to Alex's Blackjack game.\n");
     printf("Enter x at any time to exit the game.\n");
-    // char user_input;
-    // scanf("%c", &user_input);
 
     struct Deck myDeck;
     struct Deck *p;
     p = &myDeck;
     create_deck(p);
-    //while (user_input != 'x')
     deal(p);
 
+    printf("Thanks for playing, don't get a gambling addiction now.\n");
     return 0;
 }
